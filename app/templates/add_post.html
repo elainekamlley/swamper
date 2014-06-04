@@ -1,0 +1,24 @@
+<html>
+	<head>
+		<title> swamper</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesh.css') }}">
+	</head>
+		<body>
+			<div class = navigation_bar>
+			<h1> Add yourself. </h1>
+			</div>
+ 			
+ 			<br>
+ 			<!--In this section I am adding the form for users to submit their information. Within the {} you add the flask syntax that pulls from forms.py as well as any characteristics you want it to be: size, required-->
+ 			<form action= "" method= "post" name= "newuser">
+ 				{{form.hidden_tag()}}
+ 				First name: {{ form.firstname(size=30)}}
+ 				<br>Last name: {{ form.lastname(size=30)}}
+ 				<br>User name: {{ form.username(size=30)}}
+ 				<br><input type= "submit" value= "I'm done! (Add this user)">
+ 			</form>
+
+		
+
+		</body>
+</html>

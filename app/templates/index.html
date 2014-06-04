@@ -5,17 +5,28 @@
 	</head>
 		<body>
 			<div class = navigation_bar>
-			<h1> Hello, welcome to the world! </h1>
+			<h1> The blog. </h1>
 		</div>
-			{% for post in posts %}
-			<div {% if post.author == 'Brandi' %} class ='lyrics' {% else %} class = 'lyrics_black' {% endif %}>
-				<p><span class = 'title'>{{post.title}}</p> </span>
-				<p>Posted by {{post.author}}</p>
+ 
 
-				<p> {{post.content}}</p> </p>
-			</div>
-			<br>
+			{% for user in users: %}
+			<div class = 'lyrics'>
+				<p><span class = 'title'>{{user.firstname}} {{user.lastname}}</span>
+				<br> ({{user.username}}) </p>
+	
+				{% for post in posts: %}
+
+					{% if post.author_id == user.id %}
+					<p><b>{{post.title}}</b>
+					<br>{{post.content}}</p>
+
+					{% endif %}
+
+				{% endfor %}
+				</div>
+
 			{% endfor %}
+		
 
 		</body>
 </html>

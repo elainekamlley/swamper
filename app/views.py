@@ -1,16 +1,36 @@
 # -*- coding: utf-8 -*-
 
-from app import app
-from flask import render_template
-from models import Post
+from app import app, db
+from flask import Flask, render_template, redirect
+from models import Post, User
+from forms import NewUserForm
 
 @app.route('/')
 def index():
-	post_1 = Post('Never gonna get it', 'En Vogue', 'I remember how it used to be, you never were this nice, you cant fool me')
-	post_2 = Post('Dancing on my own', 'Robyn', 'Im in the corner watching you kiss her, ohhhh!')
-	post_3 = Post('Sittin up in my room', 'Brandi', 'Seems like ever since from the first day we met')
-	post_4 = Post('I wanna be down', 'Brandi', 'With what youre going in through, I want to be down ow ow owwwwn')
+	users = User.query.all()
+	posts = Post.query.all()
+	return render_template('index.html', users = users, posts = posts )
 
-	return render_template('index.html', posts = [post_1, post_2, post_3, post_4])
+@app.route('/add_user', methods = ['GET', 'POST'])
+def add_user():
+	form = NewUserForm()
+	if form.validate_on_submit():
+		user = User()
+		form.populate_obj(user)
+		db.session.add(user)
+		db.session.commit()
+		return redirect('/')
+	return render_template("add_user.html", form = form)
+
+#@app.route('/add_post', methods = ['GET', 'POST'])
+#def add_user():
+#	form = NewPostForm()
+#	if form.validate_on_submit():
+#		post = Post()
+#		form.populate_obj(post)
+#		db.session.add(post)
+#		db.session.commit()
+#		return redirect('/')
+#	return render_template("add_post.html", form = form)
 
 
